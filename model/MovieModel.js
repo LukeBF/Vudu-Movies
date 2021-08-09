@@ -1,6 +1,6 @@
-const moviesDB = 
+const movieModel = 
 {
-    movies: [
+    moviesDB: [
         {
             id: 1,
             title: "Movie 1",
@@ -50,18 +50,19 @@ const moviesDB =
 
     getAllMovies()
     {
-        return this.movies
+        return this.moviesDB;
     },
 
     getAMovie(id)
     {
-        return this.movies.find(movie=>movie.id === id)
+        return this.moviesDB.find(movie=>movie.id === id);
     },
 
     createAMovie(movie)
     {
-        this.movies.push(movie)
+        return this.moviesDB.push(movie);
+        
     }
 }
 
-module.exports = moviesDB;
+module.exports = movieModel;

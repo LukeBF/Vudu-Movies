@@ -1,8 +1,8 @@
 const express = require("express")
 
 // Import Controllers
-const movieController = require("./controllers/MovieController")
-const userController = require("./controllers/UserController")
+const movieController = require("./controllers/MovieController.js")
+const userController = require("./controllers/UserController.js")
 
 const app = express();
 
