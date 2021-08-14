@@ -1,4 +1,5 @@
-// Import movieModel
+// Import model layer
+const { getAMovie } = require("../model/MovieModel.js");
 const movieModel = require("../model/MovieModel.js")
 
 exports.getMovieListing = (req,res)=>{
@@ -11,10 +12,10 @@ exports.getMovieListing = (req,res)=>{
 
 };
 
-exports.getSingleMovie = (req,res)=>{
+exports.getMovieItem = (req,res)=>{
 
     const id = parseInt(req.params.id)
-    const foundMovie = movieModel.getAMovie(id)
+    const foundMovie = movieModel.getMovie(id)
     
     if(foundMovie != undefined)
     {
@@ -34,11 +35,32 @@ exports.getSingleMovie = (req,res)=>{
 
 exports.createMovieItem = (req,res)=>{
 
-    movieModel.createAMovie(req.body)
+    movieModel.createMovie(req.body)
 
     res.json({
         message: `The movie was successfully created.`,
         data: req.body
     })
     
+};
+
+exports.updateMovieItem = (req,res)=>{
+
+    const id = parseInt(req.params.id)
+
+    movieModel.updateMovie(id)
+
+    const updatedMovie = req.body
+
+    res.json({
+        message: `The movie was successfully updated`,
+        data: updatedMovie
+    })
+    
+};
+
+exports.deleteMovieItem = (req,res)=>{
+
+    
 }
+

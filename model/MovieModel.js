@@ -1,3 +1,7 @@
+const { updateMovieItem } = require("../services/MovieService");
+
+//const { deleteMovieItem } = require("../services/MovieService");
+
 const movieModel = 
 {
     moviesDB: [
@@ -53,14 +57,30 @@ const movieModel =
         return this.moviesDB;
     },
 
-    getAMovie(id)
+    getMovie(id)
     {
         return this.moviesDB.find(movie=>movie.id === id);
     },
 
-    createAMovie(movie)
+    createMovie(movie)
     {
-        return this.moviesDB.push(movie);
+        return this.moviesDB.push(movie);   
+    },
+
+    updateMovie(id)
+    {
+        //find movie item in the database
+        let foundMovie = this.moviesDB.find(movie=>movie.id === id); 
+        console.log(foundMovie)
+
+ 
+        console.log(foundMovie) 
+
+        return foundMovie
+    },
+
+    deleteMovieItem(movie)
+    {
         
     }
 }
