@@ -9,3 +9,6 @@ exports.getMovieListing = (req,res)=>{
 
 }
 This is because there will be multiple functions to export and module.export only allows you to export one thing
+
+Middleware - functions in express that are to be called in the middle of the pipeline between the client sending a request 
+and the server sending a response
