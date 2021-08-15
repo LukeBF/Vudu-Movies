@@ -19,13 +19,9 @@ router.get("/:id",movieService.getMovieItem)
  router.post("/",movieService.createMovieItem)
 
 // Send a PUT request to UPDATE a movie listing
-<<<<<<< HEAD
 router.put("/:id", movieService.updateMovieItem)
 
 // Delete a movie
 router.delete("/:id", movieService.deleteMovieItem)
-=======
-router.put("/:id",movieService.updateMovieItem)
->>>>>>> 17cb8d39f8c7306584f0b781dea7eea3e2a49fb3
 
 module.exports = router;

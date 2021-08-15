@@ -45,7 +45,7 @@ exports.createMovieItem = (req,res)=>{
 };
 
 exports.updateMovieItem = (req,res)=>{
-<<<<<<< HEAD
+
     const movieID = parseInt(req.params.id);
     movieModel.updateMovie(movieID,req.body)
     
@@ -68,24 +68,3 @@ exports.deleteMovieItem = (req,res)=>{
     })
 
 }
-=======
-
-    const id = parseInt(req.params.id)
-
-    movieModel.updateMovie(id)
-
-    const updatedMovie = req.body
-
-    res.json({
-        message: `The movie was successfully updated`,
-        data: updatedMovie
-    })
-    
-};
-
-exports.deleteMovieItem = (req,res)=>{
-
-    
-}
-
->>>>>>> 17cb8d39f8c7306584f0b781dea7eea3e2a49fb3

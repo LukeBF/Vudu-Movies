@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-const fs=require ("fs")
-=======
 const { updateMovieItem } = require("../services/MovieService");
-
-//const { deleteMovieItem } = require("../services/MovieService");
->>>>>>> 17cb8d39f8c7306584f0b781dea7eea3e2a49fb3
 
 const movieModel = 
 {
@@ -67,7 +61,6 @@ const movieModel =
     },
 
     createMovie(movie)
-<<<<<<< HEAD
     {
         return this.moviesDB.push(movie);
     },
@@ -75,7 +68,6 @@ const movieModel =
     updateMovie(id,movie)
     {
         const foundMovie = this.moviesDB.find(movie=>movie.id === id)
-        console.log(foundMovie)
 
         foundMovie.title = movie.title
         foundMovie.genre = movie.genre
@@ -93,28 +85,6 @@ const movieModel =
         const newMovieList = this.moviesDB.filter(movie=>movie.id !== id)
         
         return this.moviesDB = newMovieList
-
-=======
-    {
-        return this.moviesDB.push(movie);   
-    },
-
-    updateMovie(id)
-    {
-        //find movie item in the database
-        let foundMovie = this.moviesDB.find(movie=>movie.id === id); 
-        console.log(foundMovie)
-
- 
-        console.log(foundMovie) 
-
-        return foundMovie
-    },
-
-    deleteMovieItem(movie)
-    {
->>>>>>> 17cb8d39f8c7306584f0b781dea7eea3e2a49fb3
-        
     }
 
 }
