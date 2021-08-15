@@ -14,7 +14,7 @@ exports.getMovieListing = (req,res)=>{
 exports.getSingleMovie = (req,res)=>{
 
     const id = parseInt(req.params.id)
-    const foundMovie = movieModel.getAMovie(id)
+    const foundMovie = movieModel.getMovie(id)
     
     if(foundMovie != undefined)
     {
@@ -34,11 +34,35 @@ exports.getSingleMovie = (req,res)=>{
 
 exports.createMovieItem = (req,res)=>{
 
-    movieModel.createAMovie(req.body)
+    movieModel.createMovie(req.body)
 
     res.json({
         message: `The movie was successfully created.`,
         data: req.body
     })
     
+};
+
+exports.updateMovieItem = (req,res)=>{
+    const movieID = parseInt(req.params.id);
+    movieModel.updateMovie(movieID,req.body)
+    
+    
+    res.json({
+        message: `Movie with ID:${movieID} was successfully updated.`,
+        data: req.body
+    })
+
+};
+
+exports.deleteMovieItem = (req,res)=>{
+
+    const movieID = parseInt(req.params.id);
+    movieModel.deleteMovie(movieID)
+
+    res.json({
+        message: `Movie with ID:${movieID} was successfully deleted.`,
+        data: req.body
+    })
+
 }

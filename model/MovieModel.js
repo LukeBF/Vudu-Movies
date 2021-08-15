@@ -1,3 +1,5 @@
+const fs=require ("fs")
+
 const movieModel = 
 {
     moviesDB: [
@@ -53,16 +55,41 @@ const movieModel =
         return this.moviesDB;
     },
 
-    getAMovie(id)
+    getMovie(id)
     {
         return this.moviesDB.find(movie=>movie.id === id);
     },
 
-    createAMovie(movie)
+    createMovie(movie)
     {
         return this.moviesDB.push(movie);
+    },
+
+    updateMovie(id,movie)
+    {
+        const foundMovie = this.moviesDB.find(movie=>movie.id === id)
+        console.log(foundMovie)
+
+        foundMovie.title = movie.title
+        foundMovie.genre = movie.genre
+        foundMovie.poster_path = movie.poster_path
+        foundMovie.release_date = movie.release_date
+        foundMovie.rating = movie.rating
+        foundMovie.length = movie.length
+
+        return foundMovie
+
+    },
+
+    deleteMovie(id)
+    {
+        const newMovieList = this.moviesDB.filter(movie=>movie.id !== id)
+        
+        return this.moviesDB = newMovieList
+
         
     }
+
 }
 
 module.exports = movieModel;

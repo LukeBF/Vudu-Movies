@@ -19,19 +19,9 @@ router.get("/:id",movieService.getSingleMovie)
  router.post("/",movieService.createMovieItem)
 
 // Send a PUT request to UPDATE a movie listing
-router.put("/:id", (req,res)=>{
+router.put("/:id", movieService.updateMovieItem)
 
-    const movieID = parseInt(req.params.id);
-    const movieItem = movies.find(movie=>movie.id === movieID);
-    const updatedMovieItem = req.body;
-    
-    if(movieItem)
-    {
-        res.json({
-            message: `Movie with ID:${movieID} was successfully updated.`,
-            data: movieItem
-        })
-    }
-})
+// Delete a movie
+router.delete("/:id", movieService.deleteMovieItem)
 
 module.exports = router;
