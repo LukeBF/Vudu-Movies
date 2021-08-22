@@ -6,7 +6,7 @@ const express = require("express")
 const mongoose = require('mongoose');
 
 // Import Keys
-const Keys = require("./config/Keys.js")
+require ('dotenv').config({path:"config/Keys.env"})
 
 // Import Controllers
 const movieController = require("./controllers/MovieController.js")
@@ -19,12 +19,13 @@ app.use(express.json());
 app.use("/movies",movieController);
 app.use("/users",userController);
 
-const PORT = 5000
+const PORT = process.env.PORT
+
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
 
     // MongoDB connection string
-    mongoose.connect(`${Keys.MONGODB_CONN_STRING}`, {useNewUrlParser: true, useUnifiedTopology: true})
+    mongoose.connect(`${process.env.MONGODB_CONNECTION_STRING}`, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=>{
         console.log(`MongoDB is connected`)
     })
