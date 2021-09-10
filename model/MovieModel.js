@@ -31,7 +31,7 @@ const movieSchema = new Schema({
     {
         type:String,
         default: "default-movie.jpg"
-    }
+    },
 
 });
 

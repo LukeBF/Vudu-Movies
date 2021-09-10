@@ -1,5 +1,5 @@
 // Import model layer
-const { getAMovie } = require("../model/MovieModel.js");
+// const { getAMovie } = require("../model/MovieModel.js");
 const movieModel = require("../model/MovieModel.js")
 
 exports.createMovieItem = (req,res)=>{
@@ -31,7 +31,6 @@ exports.getMovieListing = (req,res)=>{
 
     movieModel.find() //returns an array of documents
     .then((movies)=>{
-
         res.json({
             message: "List of all movies in the database",
             data: movies,
@@ -43,10 +42,7 @@ exports.getMovieListing = (req,res)=>{
         res.status(500).json({
             message: `Error: ${err}`,
         })
-
     })
-    
-
 };
 
 
@@ -83,25 +79,67 @@ exports.getMovieItem = (req,res)=>{
 
 exports.updateMovieItem = (req,res)=>{
 
-const movieID = parseInt(req.params.id);
-movieModel.updateMovie(movieID,req.body)
+    // const movieID = parseInt(req.params.id);
+    const updatedMovie = req.body
 
+    // movieModel.findByIdAndUpdate({id:movieID},req.body,{new:true})
+    movieModel.findByIdAndUpdate(req.params.id,updatedMovie,{new:true})
 
-res.json({
-    message: `Movie with ID:${movieID} was successfully updated.`,
-    data: req.body
-})
+    .then((movie)=>{
+        
+        if(movie)
+        {
+            res.json({
+                message: `Movie with ID:${req.params.id} was successfully updated.`,
+                data: movie
+            })
+        }
+        else
+        {
+            res.status(404).json({
+                message: `Item with ID: ${req.params.id} not found`
+            })
+        }
+    })
+    .catch(err=>{
+
+        res.status(500).json({
+            message: `Error: ${err}`,
+        })
+
+    })
+
+    
 
 };
 
 exports.deleteMovieItem = (req,res)=>{
 
-    const movieID = parseInt(req.params.id);
-    movieModel.deleteMovie(movieID)
+    // const movieID = parseInt(req.params.id);
 
-    res.json({
-        message: `Movie with ID:${movieID} was successfully deleted.`,
-        data: req.body
+    movieModel.findByIdAndRemove(req.params.id)
+
+    .then((movie)=>{
+        
+        if(movie)
+        {
+            res.json({
+                message: `Movie with ID:${req.params.id} was successfully deleted.`,
+            })
+        }
+        else
+        {
+            res.status(404).json({
+                message: `Item with ID: ${req.params.id} not found`
+            })
+        }
+    })
+    .catch(err=>{
+
+        res.status(500).json({
+            message: `Error: ${err}`,
+        })
+
     })
 
 };
