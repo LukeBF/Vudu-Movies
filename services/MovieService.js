@@ -29,6 +29,9 @@ exports.createMovieItem = (req,res)=>{
 
 exports.getMovieListing = (req,res)=>{
 
+    // const fnName = "Featured"
+    // console.log(fnName);
+
     movieModel.find() //returns an array of documents
     .then((movies)=>{
         res.json({
@@ -43,7 +46,28 @@ exports.getMovieListing = (req,res)=>{
             message: `Error: ${err}`,
         })
     })
-};
+}
+
+exports.getFeatured = (req,res)=>{
+    
+    // const fnName = "Featured"
+    // console.log(fnName);
+
+    movieModel.find({isFeatured:true}) //returns an array of documents
+    .then((movies)=>{
+        res.json({
+            message: "List of all featured titles",
+            data: movies,
+            total: movies.length
+        })
+    })
+    .catch(err=>{
+
+        res.status(500).json({
+            message: `Error: ${err}`,
+        })
+    })
+}
 
 
 exports.getMovieItem = (req,res)=>{

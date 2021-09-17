@@ -12,6 +12,9 @@ const movieService = require("../services/MovieService.js")
 // GET list of movies
 router.get("/",movieService.getMovieListing)
 
+// GET list of featured titles
+router.get("/featured",movieService.getFeatured)
+
 // GET movie by id
 router.get("/:id",movieService.getMovieItem)
 
@@ -19,9 +22,9 @@ router.get("/:id",movieService.getMovieItem)
  router.post("/",movieService.createMovieItem)
 
 // Send a PUT request to UPDATE a movie listing
-router.put("/:id", movieService.updateMovieItem)
+router.put("/:id",movieService.updateMovieItem)
 
 // Delete a movie
-router.delete("/:id", movieService.deleteMovieItem)
+router.delete("/:id",movieService.deleteMovieItem)
 
 module.exports = router;

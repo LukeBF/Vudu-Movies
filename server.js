@@ -1,6 +1,7 @@
 const express = require("express")
 
 //Import Cors
+const cors = require("cors")
 
 // Import Mongoose
 const mongoose = require('mongoose');
@@ -15,6 +16,10 @@ const userController = require("./controllers/UserController.js")
 const app = express();
 
 app.use(express.json());
+
+app.use(cors({
+    origin: "http://localhost:3001"
+}));
 
 app.use("/movies",movieController);
 app.use("/users",userController);

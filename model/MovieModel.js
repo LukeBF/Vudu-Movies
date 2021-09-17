@@ -32,6 +32,20 @@ const movieSchema = new Schema({
         type:String,
         default: "default-movie.jpg"
     },
+    isFeatured:
+    {
+        type:Boolean,
+        default:false
+    },
+    rentalPrice:
+    {
+        type:Number
+    },
+    purchasePrice:
+    {
+        type:Number
+    }
+
 
 });
 
