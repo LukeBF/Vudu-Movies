@@ -9,8 +9,14 @@ const router = express.Router()
 const movieService = require("../services/MovieService.js")
 
 // Routes (Endpoints)
-// GET list of movies
-router.get("/",movieService.getMovieListing)
+// GET list of all titles
+router.get("/",movieService.getAllTitles)
+
+//GET list of all movies
+router.get("/allmovies",movieService.getAllMovies)
+
+// GET list of all tv-shows
+router.get("/tvshows",movieService.getAllShows)
 
 // GET list of featured titles
 router.get("/featured",movieService.getFeatured)

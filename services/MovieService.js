@@ -2,6 +2,7 @@
 // const { getAMovie } = require("../model/MovieModel.js");
 const movieModel = require("../model/MovieModel.js")
 
+// Create a new movie/tv-show
 exports.createMovieItem = (req,res)=>{
 
     const newData = req.body;
@@ -27,12 +28,30 @@ exports.createMovieItem = (req,res)=>{
     })
 };
 
-exports.getMovieListing = (req,res)=>{
-
-    // const fnName = "Featured"
-    // console.log(fnName);
+// Get ALL titles
+exports.getAllTitles = (req,res)=>{
 
     movieModel.find() //returns an array of documents
+    .or([{type:"movies"},{type:"tv-shows"}])
+    .then((movies)=>{
+        res.json({
+            message: "List of all titles in the database",
+            data: movies,
+            total: movies.length
+        })
+    })
+    .catch(err=>{
+
+        res.status(500).json({
+            message: `Error: ${err}`,
+        })
+    })
+}
+
+// Get ALL movies
+exports.getAllMovies = (req,res)=>{
+
+    movieModel.find({type:"movies"}) //returns all movies
     .then((movies)=>{
         res.json({
             message: "List of all movies in the database",
@@ -48,12 +67,32 @@ exports.getMovieListing = (req,res)=>{
     })
 }
 
+// Get ALL TV-Shows
+exports.getAllShows = (req,res)=>{
+
+    movieModel.find({type:"tv-shows"}) //returns all tv-shows
+    .then((movies)=>{
+        res.json({
+            message: "List of all tv-shows in the database",
+            data: movies,
+            total: movies.length
+        })
+    })
+    .catch(err=>{
+
+        res.status(500).json({
+            message: `Error: ${err}`,
+        })
+    })
+}
+
+// Get Featured titles
 exports.getFeatured = (req,res)=>{
     
     // const fnName = "Featured"
     // console.log(fnName);
 
-    movieModel.find({isFeatured:true}) //returns an array of documents
+    movieModel.find({isFeatured:true,type:"movies"}) //returns an array of documents
     .then((movies)=>{
         res.json({
             message: "List of all featured titles",

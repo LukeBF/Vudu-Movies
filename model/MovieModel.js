@@ -44,8 +44,21 @@ const movieSchema = new Schema({
     purchasePrice:
     {
         type:Number
+    },
+    type:
+    {
+        type: String,
+        required: true
+    },
+    release:
+    {
+        type: String,
+        required: true
+    },
+    overview:
+    {
+        type: String
     }
-
 
 });
 
