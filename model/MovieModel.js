@@ -6,17 +6,17 @@ const movieSchema = new Schema({
     title:
     {
         type:String,
-        required:true
+        // required:true
     },
     genre:
     {
         type:String,
-        required:true
+        // required:true
     },
     rating:
     {
         type:String,
-        required:true
+        // required:true
     },
     length:
     {
@@ -48,12 +48,12 @@ const movieSchema = new Schema({
     type:
     {
         type: String,
-        required: true
+        // required: true
     },
     release:
     {
         type: String,
-        required: true
+        // required: true
     },
     overview:
     {
