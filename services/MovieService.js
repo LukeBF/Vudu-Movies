@@ -1,9 +1,16 @@
 // Import model layer
-// const { getAMovie } = require("../model/MovieModel.js");
 const movieModel = require("../model/MovieModel.js")
+
+// Import AWS
+const AWS = require('aws-sdk')
 
 // Create a new movie/tv-show
 exports.createMovieItem = (req,res)=>{
+
+    const s3 = new AWS.S3({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_KEY
+    })
 
     const newData = req.body;
 
@@ -14,10 +21,29 @@ exports.createMovieItem = (req,res)=>{
 
     .then((movie)=>{ //movie is the inserted document
 
-        res.json({
-            message: "The movie was successfully added",
-            data: movie
-        })
+        // Setting up S3 upload parameters
+        const params = {
+            Bucket: process.env.AWS_MOVIES_BUCKET_NAME,
+            Key: req.files.imgPath.name, // File name you want to save as in S3
+            Body: req.files.imgPath.data
+        };
+
+        // Uploading files to the bucket
+        s3.upload(params, function(err, data) {
+            if (err) {
+                throw err;
+            }
+
+            res.json({
+                message: "The movie was successfully added",
+                data: movie
+            })
+
+            console.log(`File uploaded successfully. ${data.Location}`);
+        });
+
+       
+
     })
     .catch(err=>{
 

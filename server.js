@@ -9,6 +9,9 @@ const mongoose = require('mongoose');
 // Import Keys
 require ('dotenv').config({path:"config/Keys.env"})
 
+// Import FileUpload
+const fileupload = require('express-fileupload')
+
 // Import Controllers
 const movieController = require("./controllers/MovieController.js")
 const userController = require("./controllers/UserController.js")
@@ -16,6 +19,7 @@ const userController = require("./controllers/UserController.js")
 const app = express();
 
 app.use(express.json());
+app.use(fileupload());
 
 app.use(cors({
     origin: "http://localhost:3001"
