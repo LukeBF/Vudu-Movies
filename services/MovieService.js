@@ -2,11 +2,13 @@
 const movieModel = require("../model/MovieModel.js")
 
 // Import AWS
-const AWS = require('aws-sdk')
+const AWS = require('aws-sdk');
+const { S3 } = require("aws-sdk");
 
-// Create a new movie/tv-show
+// Add/create a new movie/tv-show
 exports.createMovieItem = (req,res)=>{
 
+    //Linking Amazon S3 bucket to store images
     const s3 = new AWS.S3({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_KEY
@@ -34,15 +36,19 @@ exports.createMovieItem = (req,res)=>{
                 throw err;
             }
 
-            res.json({
-                message: "The movie was successfully added",
-                data: movie
-            })
+            newMovie.imgPath = data.Location
+            newMovie.save()
 
-            console.log(`File uploaded successfully. ${data.Location}`);
+            .then((movie)=>{
+                res.json({
+                    message: "The movie was successfully added",
+                    data: movie
+                })
+            });
+            
+
+            console.log(`File uploaded successfully.${data.Location}`);
         });
-
-       
 
     })
     .catch(err=>{
@@ -54,11 +60,13 @@ exports.createMovieItem = (req,res)=>{
     })
 };
 
-// Get ALL titles
+// Get all movies from the DB
 exports.getAllTitles = (req,res)=>{
 
     movieModel.find() //returns an array of documents
     .or([{type:"movies"},{type:"tv-shows"}])
+    // .limit(3)
+    // .sort({release :-1})
     .then((movies)=>{
         res.json({
             message: "List of all titles in the database",
@@ -93,7 +101,7 @@ exports.getAllMovies = (req,res)=>{
     })
 }
 
-// Get ALL TV-Shows
+// Get all TV-Shows
 exports.getAllShows = (req,res)=>{
 
     movieModel.find({type:"tv-shows"}) //returns all tv-shows
@@ -112,7 +120,7 @@ exports.getAllShows = (req,res)=>{
     })
 }
 
-// Get Featured titles
+// Get featured titles
 exports.getFeatured = (req,res)=>{
     
     // const fnName = "Featured"
@@ -121,7 +129,7 @@ exports.getFeatured = (req,res)=>{
     movieModel.find({isFeatured:true,type:"movies"}) //returns an array of documents
     .then((movies)=>{
         res.json({
-            message: "List of all featured titles",
+            message: "List of all featured movies",
             data: movies,
             total: movies.length
         })
@@ -134,7 +142,25 @@ exports.getFeatured = (req,res)=>{
     })
 }
 
+exports.getFeaturedTv = (req,res)=>{
 
+    movieModel.find({isFeatured:true,type:"tv-shows"}) //returns an array of documents
+    .then((movies)=>{
+        res.json({
+            message: "List of all featured TV-Shows",
+            data: movies,
+            total: movies.length
+        })
+    })
+    .catch(err=>{
+
+        res.status(500).json({
+            message: `Error: ${err}`,
+        })
+    })
+}
+
+// Get a single movie
 exports.getMovieItem = (req,res)=>{
 
     movieModel.findById(req.params.id)
@@ -166,6 +192,7 @@ exports.getMovieItem = (req,res)=>{
       
 };
 
+// Update a single movie
 exports.updateMovieItem = (req,res)=>{
 
     // const movieID = parseInt(req.params.id);
@@ -173,6 +200,7 @@ exports.updateMovieItem = (req,res)=>{
 
     // movieModel.findByIdAndUpdate({id:movieID},req.body,{new:true})
     movieModel.findByIdAndUpdate(req.params.id,updatedMovie,{new:true})
+
 
     .then((movie)=>{
         
@@ -195,11 +223,7 @@ exports.updateMovieItem = (req,res)=>{
         res.status(500).json({
             message: `Error: ${err}`,
         })
-
     })
-
-    
-
 };
 
 exports.deleteMovieItem = (req,res)=>{

@@ -13,7 +13,11 @@ const userSchema = new Schema({
     },
     email:
     {
-        type:String
+        type:String,
+        required:true,
+        // unique: true,
+        // min:6,
+        // max:255
     },
     username:
     {
@@ -23,12 +27,19 @@ const userSchema = new Schema({
     password:
     {
         type:String,
-        required:true
+        required:true,
+        // min:8,
+        // max:1024
     },
     isAdmin:
     {
         type:Boolean,
         default:false
+    },
+    dateAdded:
+    {
+        type:Date,
+        default:Date.now
     }
 
 });

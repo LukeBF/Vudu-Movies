@@ -12,25 +12,53 @@ const movieService = require("../services/MovieService.js")
 // GET list of all titles
 router.get("/",movieService.getAllTitles)
 
-//GET list of all movies
+/**
+ * @description get all movies
+ * @method GET /allmovies
+ */
 router.get("/allmovies",movieService.getAllMovies)
 
-// GET list of all tv-shows
+/**
+ * @description get all tv-shows
+ * @method GET /tvshows
+ */
 router.get("/tvshows",movieService.getAllShows)
 
-// GET list of featured titles
+/**
+ * @description get all featured
+ * @method GET /featured
+ */
 router.get("/featured",movieService.getFeatured)
 
-// GET movie by id
+/**
+ * @description get featured tv shows
+ * @method GET /featured
+ */
+ router.get("/featured/tvshows",movieService.getFeaturedTv)
+
+/**
+ * @description get a single item from the movies DB by ID
+ * @method GET /:id
+ */
 router.get("/:id",movieService.getMovieItem)
 
- //CREATE a new movie listing
+ /**
+ * @description add/create a new item in the movies DB
+ * @method POST /*ROOT*
+ */
  router.post("/",movieService.createMovieItem)
 
-// Send a PUT request to UPDATE a movie listing
+/**
+ * @description update a single movie item in the DB
+ * @method PUT /:id
+ */
 router.put("/:id",movieService.updateMovieItem)
 
 // Delete a movie
+/**
+ * @description delete a single movie from the DB
+ * @method DELETE /:id
+ */
 router.delete("/:id",movieService.deleteMovieItem)
 
 module.exports = router;
