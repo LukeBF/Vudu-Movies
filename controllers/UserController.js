@@ -3,7 +3,10 @@ const router = express.Router()
 
 const userService = require("../services/UserService.js")
 
-// Create a user
+ /**
+ * @description add/create a new item in the movies DB
+ * @method POST /*ROOT*
+ */
 router.post("/",userService.createUser)
 
 // Get all users

@@ -12,11 +12,12 @@ exports.createUser = (req,res)=>{
     // const newUser = new userModel(newUserData)
 
     const user = new userModel({
-        firstName:req.body.firstName,
-        lastName:req.body.lastName,
+        fname:req.body.fname,
+        lname:req.body.lname,
         email:req.body.email,
         username:req.body.username,
-        password:req.body.password
+        password:req.body.password,
+        isAdmin:req.body.isAdmin
     })
     user.save()
 
